@@ -25,6 +25,8 @@
 #import "System/FileStream.h"
 #import "System/Logger/File.h"
 
+#import "AppKit/NSNibLoading.h"
+
 using namespace GemRB;
 
 /* The main class of the application, the application's delegate */
@@ -123,7 +125,7 @@ using namespace GemRB;
 	// we configure this here so that when GemRB is launched though means such as Drag/Drop we dont show the config window
 
 	_showConfigWindow = YES; //still need to set this to YES in case an error occurs
-	[NSBundle loadNibNamed:@"GemRB" owner:self];
+	[[NSBundle mainBundle] loadNibNamed:@"GemRB" owner:self topLevelObjects:NULL];
 
 	if (core == NULL) {
 		[_configWindow makeKeyAndOrderFront:nil];
