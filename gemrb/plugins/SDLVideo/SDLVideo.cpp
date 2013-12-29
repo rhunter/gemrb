@@ -1506,6 +1506,8 @@ void SDLVideoDriver::SetSurfacePixel(SDL_Surface* surface, short x, short y, con
 	Uint32 val = SDL_MapRGBA( fmt, color.r, color.g, color.b, color.a );
 	SDL_LockSurface( surface );
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-align"
 	switch (fmt->BytesPerPixel) {
 		case 1:
 			*pixels = (unsigned char)val;
@@ -1532,6 +1534,8 @@ void SDLVideoDriver::SetSurfacePixel(SDL_Surface* surface, short x, short y, con
 			break;
 	}
 
+#pragma clang diagnostic pop
+
 	SDL_UnlockSurface( surface );
 }
 
@@ -1543,6 +1547,8 @@ void SDLVideoDriver::GetSurfacePixel(SDL_Surface* surface, short x, short y, Col
 	( ( y * surface->w + x) * Bpp );
 	Uint32 val = 0;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-align"
 	if (Bpp == 1) {
 		val = *pixels;
 	} else if (Bpp == 2) {
@@ -1557,6 +1563,7 @@ void SDLVideoDriver::GetSurfacePixel(SDL_Surface* surface, short x, short y, Col
 		val = *(Uint32 *)pixels;
 	}
 
+#pragma clang diagnostic pop
 	SDL_UnlockSurface( surface );
 	SDL_GetRGBA( val, surface->format, (Uint8 *) &c.r, (Uint8 *) &c.g, (Uint8 *) &c.b, (Uint8 *) &c.a );
 }
