@@ -399,7 +399,7 @@ bool MakeDirectories(const char* path)
 	char Tokenized[_MAX_PATH];
 	strcpy(Tokenized, path);
 
-	char* Token = strtok(Tokenized, &PathDelimiter);
+	char* Token = strtok(Tokenized, SPathDelimiter);
 	while(Token != NULL) {
 		if(TempFilePath[0] == 0) {
 			if(path[0] == PathDelimiter) {
@@ -413,7 +413,7 @@ bool MakeDirectories(const char* path)
 		if(!MakeDirectory(TempFilePath))
 			return false;
 
-		Token = strtok(NULL, &PathDelimiter);
+		Token = strtok(NULL, SPathDelimiter);
 	}
 	return true;
 }
